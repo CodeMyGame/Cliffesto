@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "548954254260",
+    "firebase_url": "https://cliffesto-4f452.firebaseio.com",
+    "project_id": "cliffesto-4f452",
+    "storage_bucket": "cliffesto-4f452.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:548954254260:android:86a71c0aa7980cb7",
+        "android_client_info": {
+          "package_name": "com.cliffesto.cliffesto"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "548954254260-53ruiv0le7gntnnd5f8a03dt8oq1o5tb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cliffesto.cliffesto",
+            "certificate_hash": "6115FB91B746D95655ABDEE21A1A8D5EA87CF4C0"
+          }
+        },
+        {
+          "client_id": "548954254260-7ssu76b3keinlm0jg830lrudha6lf46m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwpSsvRrnWR9SLdnk6UdoGIbjLlJgGndw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "548954254260-7ssu76b3keinlm0jg830lrudha6lf46m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

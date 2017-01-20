@@ -1,0 +1,18 @@
+<tabs>
+    <tab
+        id="@+id/tab_home"
+        icon="@drawable/ic_home_black"
+        title="Home" />
+    <tab
+        id="@+id/tab_teams"
+        icon="@drawable/ic_group_black"
+        title="Teams" />
+    <tab
+        id="@+id/tab_events"
+        icon="@drawable/ic_date_range"
+        title="Events" />
+    <tab
+        id="@+id/tab_about"
+        icon="@drawable/ic_info_black"
+        title="About us" />
+</tabs>
