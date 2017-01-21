@@ -34,6 +34,9 @@ dependencies {
     compile 'com.google.firebase:firebase-auth:9.6.0'
     testCompile 'junit:junit:4.12'
     compile 'com.squareup.picasso:picasso:2.3.2'
+    compile files('libs/mail.jar')
+    compile files('libs/additionnal.jar')
+    compile files('libs/activation.jar')
 }
 
 

@@ -10,17 +10,68 @@
         android:layout_width="match_parent"
         android:layout_height="70sp"
         android:background="@color/colorPrimary">
-
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="iffesto"
+    android:id="@+id/title_cliff"
+    android:textColor="#fff"
+    android:textStyle="bold"
+    android:textSize="20dp"
+    android:layout_toRightOf="@+id/imageView"
+    android:layout_centerVertical="true"/>
+        <ImageView
+            android:id="@+id/gallary"
+            android:layout_width="wrap_content"
+            android:clickable="true"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/ic_camera_alt_black"
+            android:layout_toLeftOf="@+id/register"
+            android:layout_centerVertical="true"/>
         <ImageView
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/logo"
             android:id="@+id/imageView"
+            android:clickable="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginLeft="14dp"
             android:layout_marginStart="14dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_person_black"
+            android:id="@+id/register"
+            android:onClick="regiserActivity"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="18dp"
+            android:layout_marginEnd="18dp" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:src="@drawable/ic_place_black"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:id="@+id/reach"
+            android:layout_toLeftOf="@+id/gallary"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_share_black"
+            android:clickable="true"
+            android:onClick="share"
+            android:layout_marginRight="20dp"
+            android:layout_toLeftOf="@+id/reach"
+            />
 
     </RelativeLayout>
 

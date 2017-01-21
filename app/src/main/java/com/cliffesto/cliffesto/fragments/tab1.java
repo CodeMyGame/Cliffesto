@@ -2,6 +2,7 @@ package com.cliffesto.cliffesto.fragments;
 
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.cliffesto.cliffesto.R;
 import com.cliffesto.cliffesto.adapters.HomeAdapter;
@@ -35,8 +37,9 @@ public class tab1 extends Fragment {
     private List<HomeBean> mUsers = new ArrayList<>();
     private HomeAdapter mUserAdapter;
     ProgressBar progressBar;
+    TextView title;
     DatabaseReference myRef;
-
+    public Typeface tf;
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -48,8 +51,11 @@ public class tab1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+        tf = Typeface.createFromAsset(getActivity().getAssets(),"2.ttf");
         myRef = database.getReference("cliffesto");
         View view = inflater.inflate(R.layout.fragment_tab1, container, false);
+        title = (TextView)view.findViewById(R.id.title_cliff);
+        title.setTypeface(tf);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
