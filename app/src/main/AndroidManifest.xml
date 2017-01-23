@@ -3,7 +3,9 @@
     package="com.cliffesto.cliffesto">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
-<uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -13,19 +15,31 @@
         <activity
             android:name=".activities.MainActivity"
             android:theme="@style/AppTheme">
+
+        </activity>
+        <activity
+            android:name=".activities.SplashActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.RigesterActivity"
+            android:label="@string/title_activity_rigester"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/AppTheme2">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.SplashActivity" />
         <activity
-            android:name=".activities.RigesterActivity"
-            android:label="@string/title_activity_rigester"
+            android:name=".activities.EventRegister"
             android:parentActivityName=".activities.MainActivity"
             android:theme="@style/AppTheme2" />
-        <activity android:name=".activities.GallaryActivity"></activity>
+        <activity
+            android:name=".activities.EnentInfoActivity"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/AppTheme2" />
+        <activity android:name=".activities.ResultsAndMoreActivity" />
     </application>
 
 </manifest>

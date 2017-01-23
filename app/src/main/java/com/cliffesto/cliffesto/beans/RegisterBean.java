@@ -9,10 +9,6 @@ public class RegisterBean {
     public String email;
     public String mobile;
     public String college;
-    public  RegisterBean(){
-
-    }
-
     public RegisterBean(String name, String email,String mobile,String college) {
         this.name = name;
         this.email = email;

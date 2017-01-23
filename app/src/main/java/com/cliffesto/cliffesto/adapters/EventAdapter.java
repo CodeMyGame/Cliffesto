@@ -1,6 +1,9 @@
 package com.cliffesto.cliffesto.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,8 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cliffesto.cliffesto.R;
+import com.cliffesto.cliffesto.activities.EnentInfoActivity;
+import com.cliffesto.cliffesto.activities.EventRegister;
 import com.cliffesto.cliffesto.beans.EventBean;
-import com.cliffesto.cliffesto.beans.HomeBean;
 import com.cliffesto.cliffesto.picaso.AnimationUtils;
 import com.cliffesto.cliffesto.picaso.PicasoClient;
 
@@ -21,24 +25,10 @@ import java.util.List;
  */
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder> {
-    private List<EventBean> gallaryList;
     int previousPosition = 0;
     Context context;
+    private List<EventBean> gallaryList;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvHeading;
-        //  public TextView tvDescription;
-        public ImageView imageView;
-
-        public MyViewHolder(View itemView) {
-            super(itemView);
-            tvHeading = (TextView) itemView.findViewById(R.id.title);
-            // tvDescription = (TextView) itemView.findViewById(R.id.descrp_summer);
-            imageView = (ImageView) itemView.findViewById(R.id.head_img);
-            //batch = (Button)itemView.findViewById(R.id.btn_batch);
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        }
-    }
 
     public EventAdapter(List<EventBean> gList, Context c) {
         this.gallaryList = gList;
@@ -53,7 +43,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
     }
 
     @Override
-    public void onBindViewHolder(EventAdapter.MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final EventAdapter.MyViewHolder holder, final int position) {
         EventBean gallary = gallaryList.get(position);
         holder.tvHeading.setText(gallary.getHeading());
         //  holder.tvDescription.setText(gallary.getDescription());
@@ -70,11 +60,43 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
             AnimationUtils.animate(holder, false);
         }
         previousPosition = position;
-
+        holder.event_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, EventRegister.class);
+                intent.putExtra("eventname", holder.tvHeading.getText().toString());
+                context.startActivity(intent);
+            }
+        });
+        holder.more.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, EnentInfoActivity.class);
+                intent.putExtra("position", position);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return gallaryList.size();
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        public TextView tvHeading;
+        //  public TextView tvDescripvetion;
+        public ImageView imageView;
+        ImageView event_register, more;
+
+        public MyViewHolder(View itemView) {
+            super(itemView);
+            tvHeading = (TextView) itemView.findViewById(R.id.title);
+            imageView = (ImageView) itemView.findViewById(R.id.head_img);
+            event_register = (ImageView) itemView.findViewById(R.id.event_register);
+            more = (ImageView) itemView.findViewById(R.id.more);
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+        }
     }
 }

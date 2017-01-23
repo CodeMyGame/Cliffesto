@@ -8,9 +8,8 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.cliffesto.cliffesto.R;
-import com.cliffesto.cliffesto.adapters.HomeAdapter;
 import com.cliffesto.cliffesto.adapters.TeamAdapter;
-import com.cliffesto.cliffesto.beans.HomeBean;
 import com.cliffesto.cliffesto.beans.TeamBean;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,13 +34,14 @@ import java.util.List;
  */
 public class tab2 extends Fragment {
 
-    private RecyclerView mRecyclerView;
-    private List<TeamBean> mUsers = new ArrayList<>();
-    private TeamAdapter mUserAdapter;
+    public Typeface tf;
     ProgressBar progressBar;
     TextView title;
     DatabaseReference myRef;
-    public Typeface tf;
+    private RecyclerView mRecyclerView;
+    private List<TeamBean> mUsers = new ArrayList<>();
+    private TeamAdapter mUserAdapter;
+
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -62,8 +60,9 @@ public class tab2 extends Fragment {
         title.setTypeface(tf);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        GridLayoutManager glm = new GridLayoutManager(getActivity(),2);
-        mRecyclerView.setLayoutManager(glm);
+        //GridLayoutManager glm = new GridLayoutManager(getActivity(),2);
+        StaggeredGridLayoutManager sglm = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(sglm);
         mUserAdapter = new TeamAdapter(mUsers, getActivity());
         mRecyclerView.setAdapter(mUserAdapter);
         new MyTask().execute();

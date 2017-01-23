@@ -9,8 +9,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +19,7 @@ import android.widget.TextView;
 
 import com.cliffesto.cliffesto.R;
 import com.cliffesto.cliffesto.adapters.EventAdapter;
-import com.cliffesto.cliffesto.adapters.HomeAdapter;
 import com.cliffesto.cliffesto.beans.EventBean;
-import com.cliffesto.cliffesto.beans.HomeBean;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,13 +36,13 @@ import java.util.List;
 public class tab3 extends Fragment {
 
 
-    private RecyclerView mRecyclerView;
-    private List<EventBean> mUsers = new ArrayList<>();
-    private EventAdapter mUserAdapter;
+    public Typeface tf;
     ProgressBar progressBar;
     TextView title;
     DatabaseReference myRef;
-    public Typeface tf;
+    private RecyclerView mRecyclerView;
+    private List<EventBean> mUsers = new ArrayList<>();
+    private EventAdapter mUserAdapter;
 
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
@@ -65,7 +63,8 @@ public class tab3 extends Fragment {
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         GridLayoutManager glm = new GridLayoutManager(getActivity(),2);
-        mRecyclerView.setLayoutManager(glm);
+        StaggeredGridLayoutManager sglm = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(sglm);
         mUserAdapter = new EventAdapter(mUsers, getActivity());
         mRecyclerView.setAdapter(mUserAdapter);
         new MyTask().execute();

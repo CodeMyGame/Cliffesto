@@ -27,9 +27,9 @@
         card_view:cardPreventCornerOverlap="false">
     <ScrollView
         android:id="@+id/login_form"
-        android:padding="20sp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="20sp">
 
         <LinearLayout
             android:id="@+id/email_login_form"
@@ -109,18 +109,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:textColor="#fff"
                 android:background="@color/colorPrimary"
                 android:text="Register"
+                android:textColor="#fff"
                 android:textStyle="bold" />
             <TextView
-                android:textSize="20dp"
-                android:textColor="@color/colorPrimary"
+                android:id="@+id/textViewCliffid"
                 android:layout_width="wrap_content"
-                android:layout_gravity="center_horizontal"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="30dp"
-                android:id="@+id/textViewCliffid" />
+                android:textColor="@color/colorPrimary" />
         </LinearLayout>
 
     </ScrollView>

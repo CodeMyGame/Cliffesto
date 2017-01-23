@@ -18,39 +18,39 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:src="@drawable/img_gallary"
-            android:scaleType="centerInside" />
+            android:scaleType="centerInside"
+            android:src="@drawable/img_gallary" />
         <TextView
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Kapil Gehlot"
-            android:id="@+id/title"
-            android:textColor="#5c5c7b"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginTop="10sp"
-            android:layout_marginLeft="6dp"
             android:layout_below="@+id/head_img"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="10sp"
+            android:text="Kapil Gehlot"
+            android:textColor="#5c5c7b"
+            android:textSize="15sp"
+            android:textStyle="bold"
             />
         <TextView
+            android:id="@+id/mobile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/title"
-            android:id="@+id/mobile"
             android:layout_marginLeft="6dp"
             android:layout_marginTop="3dp"
-            android:textColor="#94283e"
-            android:text="9690148808"/>
+            android:text="9690148808"
+            android:textColor="#94283e" />
 
         <ImageView
+            android:id="@+id/call"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_call_black"
-            android:padding="10dp"
-            android:id="@+id/imageView2"
-            android:layout_alignTop="@+id/title"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignTop="@+id/title"
+            android:padding="10dp"
+            android:src="@drawable/ic_call_black" />
 
 
     </RelativeLayout>

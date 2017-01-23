@@ -1,30 +1,39 @@
 package com.cliffesto.cliffesto.emailsender;
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.mail.Message;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+
+import android.os.Environment;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.security.Security;
 import java.util.Properties;
+
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.mail.BodyPart;
+import javax.mail.Message;
+import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 /**
  * Created by Kapil Gehlot on 1/21/2017.
  */
 public class GmailSender extends javax.mail.Authenticator {
+    static {
+        Security.addProvider(new JSSEProvider());
+    }
+
     private String mailhost = "smtp.gmail.com";
     private String user;
     private String password;
     private Session session;
-
-    static {
-        Security.addProvider(new JSSEProvider());
-    }
 
     public GmailSender(String user, String password) {
         this.user = user;
@@ -50,11 +59,28 @@ public class GmailSender extends javax.mail.Authenticator {
 
     public synchronized void sendMail(String subject, String body, String sender, String recipients) throws Exception {
         try{
+            String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/cliffesto" + "/" + "cliffesto2017AppID.pdf";
             MimeMessage message = new MimeMessage(session);
-            DataHandler handler = new DataHandler(new ByteArrayDataSource(body.getBytes(), "text/plain"));
+            // DataHandler handler = new DataHandler(new ByteArrayDataSource(body.getBytes(), "text/plain"));
             message.setSender(new InternetAddress(sender));
             message.setSubject(subject);
-            message.setDataHandler(handler);
+            // Create a multipar message
+            Multipart multipart = new MimeMultipart();
+            BodyPart messageBodyPart = new MimeBodyPart();
+            messageBodyPart.setText(body);
+            // Set text message part
+            multipart.addBodyPart(messageBodyPart);
+
+            // Part two is attachment
+            messageBodyPart = new MimeBodyPart();
+            DataSource source = new FileDataSource(path);
+            messageBodyPart.setDataHandler(new DataHandler(source));
+            messageBodyPart.setFileName("cliffesto2017AppID.pdf");
+            multipart.addBodyPart(messageBodyPart);
+
+            // Send the complete message parts
+            message.setContent(multipart);
+            //  message.setDataHandler(handler);
             if (recipients.indexOf(',') > 0)
                 message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipients));
             else

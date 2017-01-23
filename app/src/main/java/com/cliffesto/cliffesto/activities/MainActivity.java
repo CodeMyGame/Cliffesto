@@ -1,12 +1,15 @@
 package com.cliffesto.cliffesto.activities;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.IdRes;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
@@ -20,10 +23,38 @@ import com.roughike.bottombar.OnTabSelectListener;
 
 public class MainActivity extends AppCompatActivity {
 
+    boolean doubl = false;
+    @Override
+    public void onBackPressed() {
+        if (doubl) {
+            super.onBackPressed();
+            finish();
+        }
+        this.doubl = true;
+        Toast.makeText(MainActivity.this, "Please click back again to exit", Toast.LENGTH_LONG).show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                doubl = false;
+            }
+        }, 2000);
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.CALL_PHONE}, 1
+            );
+        }
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1
+            );
+        }
         BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
@@ -67,4 +98,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void resultsActivity(View view) {
+        Toast.makeText(this, "comming soon!!!", Toast.LENGTH_SHORT).show();
+    }
 }
