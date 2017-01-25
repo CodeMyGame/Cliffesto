@@ -7,12 +7,14 @@ package com.cliffesto.cliffesto.beans;
 public class TeamBean {
     public String url;
     public String heading;
+    public String mobile;
     public String description;
 
-    public TeamBean(String url, String heading,String description) {
+    public TeamBean(String url, String heading, String mobile, String description) {
         this.url = url;
         this.heading = heading;
         this.description = description;
+        this.mobile = mobile;
     }
 
     public String getUrl() {
@@ -29,5 +31,13 @@ public class TeamBean {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile() {
+        this.mobile = mobile;
     }
 }

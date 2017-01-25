@@ -9,38 +9,38 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cliffesto.cliffesto.R;
-import com.cliffesto.cliffesto.beans.HomeBean;
+import com.cliffesto.cliffesto.beans.ScheduleBean;
 import com.cliffesto.cliffesto.picaso.AnimationUtils;
 import com.cliffesto.cliffesto.picaso.PicasoClient;
 
 import java.util.List;
 
 /**
- * Created by Kapil Gehlot on 1/20/2017.
+ * Created by Kapil Gehlot on 1/24/2017.
  */
 
-public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> {
+public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.MyViewHolder> {
     int previousPosition = 0;
     Context context;
-    private List<HomeBean> gallaryList;
+    private List<ScheduleBean> gallaryList;
 
-    public HomeAdapter(List<HomeBean> gList, Context c) {
+    public ScheduleAdapter(List<ScheduleBean> gList, Context c) {
         this.gallaryList = gList;
         this.context = c;
     }
 
     @Override
-    public HomeAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ScheduleAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.home_row, parent, false);
-        return new HomeAdapter.MyViewHolder(itemView);
+                .inflate(R.layout.shedule_row, parent, false);
+        return new ScheduleAdapter.MyViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(final HomeAdapter.MyViewHolder holder, final int position) {
-        HomeBean gallary = gallaryList.get(position);
+    public void onBindViewHolder(final ScheduleAdapter.MyViewHolder holder, final int position) {
+        ScheduleBean gallary = gallaryList.get(position);
         holder.tvHeading.setText(gallary.getHeading());
-        holder.description.setText(gallary.getDescription());
+        holder.description.setText(gallary.getTime());
         PicasoClient.downLoadImg(context, gallaryList.get(position).url, holder.imageView);
         if (position > previousPosition) {
             AnimationUtils.animate(holder, true);
@@ -66,10 +66,11 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
         public TextView tvHeading;
         public ImageView imageView;
         public TextView description;
+
         public MyViewHolder(View itemView) {
             super(itemView);
-            tvHeading = (TextView) itemView.findViewById(R.id.title);
-            description = (TextView) itemView.findViewById(R.id.status);
+            tvHeading = (TextView) itemView.findViewById(R.id.eventname);
+            description = (TextView) itemView.findViewById(R.id.time);
             imageView = (ImageView) itemView.findViewById(R.id.head_img);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         }

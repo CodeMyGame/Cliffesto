@@ -34,7 +34,6 @@ import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
-import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
@@ -47,7 +46,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Calendar;
 
 import static android.graphics.Color.BLACK;
 import static android.graphics.Color.WHITE;
@@ -58,7 +56,7 @@ import static android.graphics.Color.WHITE;
 public class RigesterActivity extends AppCompatActivity {
 
     public static final String EMAIL = "cliffesto.app@gmail.com";
-    public static final String PASSWORD = "cliffestoapp";
+    public static final String PASSWORD = "cliffesto2k17@nituk";
     String cliffid = "1000";
     EditText name;
     EditText email;
@@ -73,6 +71,9 @@ public class RigesterActivity extends AppCompatActivity {
     TextView cliffidText;
     File dir;
     View view;
+    Document doc;
+    File file;
+    FileOutputStream fOut;
     ProgressDialog progressDialog;
     private DatabaseReference mDatabase;
 
@@ -88,8 +89,8 @@ public class RigesterActivity extends AppCompatActivity {
         BitMatrix result;
         try {
             result = new MultiFormatWriter().encode(str,
-                    BarcodeFormat.QR_CODE, 150
-                    , 150, null);
+                    BarcodeFormat.QR_CODE, 250
+                    , 250, null);
         } catch (IllegalArgumentException iae) {
             return null;
         }
@@ -103,24 +104,26 @@ public class RigesterActivity extends AppCompatActivity {
             }
         }
         Bitmap bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
-        bitmap.setPixels(pixels, 0, 150, 0, 0, w, h);
+        bitmap.setPixels(pixels, 0, 250, 0, 0, w, h);
         return bitmap;
     }
 
-    public void createandDisplayPdf(String date, String text, String cliffid) {
+    public void createandDisplayPdf(String cliffid) {
 
-        Document doc = new Document(PageSize.A4, 0f, 0f, 0f, 0f);
+        doc = new Document(PageSize.A4, 0f, 0f, 0f, 0f);
 
         try {
-            String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/cliffesto";
+            String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/folder";
             dir = new File(path);
-
             if (!dir.exists())
                 dir.mkdirs();
-            File file = new File(dir, "cliffesto2017AppID.pdf");
-            if (file.exists())
+            file = new File(dir, "cliffesto2017AppID.pdf");
+            if (file.exists()) {
                 file.delete();
-            FileOutputStream fOut = new FileOutputStream(file);
+            } else {
+                file.createNewFile();
+            }
+            fOut = new FileOutputStream(file);
             PdfWriter.getInstance(doc, fOut);
             doc.open();
             InputStream ims = getAssets().open("logo.png");
@@ -128,45 +131,49 @@ public class RigesterActivity extends AppCompatActivity {
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bmp.compress(Bitmap.CompressFormat.PNG, 10, stream);
             Image image = Image.getInstance(stream.toByteArray());
-            image.scaleToFit(70f, 70f);
-            image.setAbsolutePosition(480f, 750f);
+            image.scaleToFit(250f, 250f);
+            image.setAbsolutePosition(180f, 680f);
+            InputStream imsign = getAssets().open("Signature.png");
+            Bitmap bmpsign = BitmapFactory.decodeStream(imsign);
+            ByteArrayOutputStream streamsign = new ByteArrayOutputStream();
+            bmpsign.compress(Bitmap.CompressFormat.PNG, 10, streamsign);
+            Image imagesign = Image.getInstance(streamsign.toByteArray());
+            imagesign.scaleToFit(100f, 100f);
+            imagesign.setAbsolutePosition(25f, 50f);
+            InputStream imstamp = getAssets().open("rubber.png");
+            Bitmap bmpstamp = BitmapFactory.decodeStream(imstamp);
+            ByteArrayOutputStream streamstamp = new ByteArrayOutputStream();
+            bmpstamp.compress(Bitmap.CompressFormat.PNG, 10, streamstamp);
+            Image imagestamp = Image.getInstance(streamstamp.toByteArray());
+            imagestamp.scaleToFit(70f, 80f);
+            imagestamp.setAbsolutePosition(480f, 50f);
             Bitmap barcode = encodeAsBitmap(cliffid);
             ByteArrayOutputStream streamBar = new ByteArrayOutputStream();
             barcode.compress(Bitmap.CompressFormat.PNG, 10, streamBar);
             Image imageBar = Image.getInstance(streamBar.toByteArray());
-            imageBar.scaleToFit(70f, 70f);
-            imageBar.setAbsolutePosition(60f, 740f);
+            imageBar.scaleToFit(250f, 250f);
+            imageBar.setAbsolutePosition(180f, 70f);
             doc.add(image);
             doc.add(imageBar);
-            float lineSpacing;
-            lineSpacing = 10f;
+            doc.add(imagesign);
+            doc.add(imagestamp);
             Chunk chunk = new Chunk(
                     "Cliffesto 2017 app registration");
             Paragraph p3 = new Paragraph(chunk);
-            Paragraph p0 = new Paragraph(new Phrase(lineSpacing, text,
-                    FontFactory.getFont(FontFactory.HELVETICA, 14f)));
-            Paragraph p1 = new Paragraph(new Phrase(0f, date,
-                    FontFactory.getFont(FontFactory.HELVETICA, 15f)));
-            Font paraFont = new Font(Font.FontFamily.HELVETICA, 50f);
-            Paragraph p2 = new Paragraph(new Phrase(50f, "Cliffesto 2017",
-                    FontFactory.getFont(FontFactory.HELVETICA, 25f)));
-            Paragraph p4 = new Paragraph(new Phrase(72f, "APPCLIFF" + cliffid,
-                    FontFactory.getFont(FontFactory.HELVETICA, 15f)));
-            p4.setAlignment(Element.ALIGN_LEFT);
-            p1.setAlignment(Element.ALIGN_RIGHT);
-            p2.setAlignment(Paragraph.ALIGN_CENTER);
-            p0.setAlignment(Element.ALIGN_LEFT);
-            p2.setFont(paraFont);
-            p4.setIndentationLeft(20);
+            Paragraph p1 = new Paragraph(new Phrase(500f, "APPCLIFF" + cliffid,
+                    FontFactory.getFont(FontFactory.HELVETICA, 20f)));
+            Paragraph p2 = new Paragraph(new Phrase(250f, "Events __________",
+                    FontFactory.getFont(FontFactory.HELVETICA, 20f)));
+
+            p1.setAlignment(Element.ALIGN_CENTER);
+
+            p2.setAlignment(Element.ALIGN_CENTER);
+//            p2.setAlignment(Element.ALIGN_LEFT);
             p3.setIndentationLeft(10);
-            p1.setIndentationRight(20);
-            p0.setIndentationLeft(20);
-            p1.setSpacingAfter(70);
             doc.add(p3);
             doc.add(p2);
-            doc.add(p4);
             doc.add(p1);
-            doc.add(p0);
+//            doc.add(p2);
         } catch (DocumentException de) {
             Log.e("PDFCreator", "DocumentException:" + de);
         } catch (IOException e) {
@@ -215,8 +222,6 @@ public class RigesterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rigester);
-        createandDisplayPdf("hjhgj", "hjvgjhg", "hbjhgjh");
-        viewPDF();
         progressDialog = new ProgressDialog(RigesterActivity.this);
         progressDialog.setMessage("Registring.....");
         progressDialog.setCancelable(false);
@@ -273,16 +278,12 @@ public class RigesterActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
             try {
+                createandDisplayPdf("" + (Integer.parseInt(cliffid) + 1));
                 GmailSender sender = new GmailSender(EMAIL, PASSWORD);
                 sender.sendMail("CLIFFESTO 2k17 APP ID",
-                        "Hii " + getname + " you are successfully registered now you can use your id (APPCLIFF" + cliffid + ") to participate in any event",
+                        "Hii " + getname + " you are successfully registered now you can use your id (APPCLIFF" + (Integer.parseInt(cliffid) + 1) + ") to participate in any event",
                         EMAIL,
                         getemail);
-                Calendar calendar = Calendar.getInstance();
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
-                int month = calendar.get(Calendar.MONTH) + 1;
-                int year = calendar.get(Calendar.YEAR);
-                createandDisplayPdf("Date : " + day + "/" + month + "/" + year, "content.....", cliffid);
             } catch (Exception e) {
                 Toast.makeText(RigesterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -309,6 +310,8 @@ public class RigesterActivity extends AppCompatActivity {
             college.setText("");
             register.setEnabled(true);
             register.setText("register");
+            //file.delete();
+
         }
     }
 }

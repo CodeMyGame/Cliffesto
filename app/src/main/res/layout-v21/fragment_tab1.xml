@@ -4,10 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
+    android:layout_margin="5dp"
     card_view:cardCornerRadius="47dp"
     card_view:cardElevation="3dp"
     card_view:cardPreventCornerOverlap="false"
     tools:context="com.cliffesto.cliffesto.fragments.tab1">
+
     <RelativeLayout
 
         android:layout_width="match_parent"
@@ -39,7 +41,8 @@
                 android:layout_toLeftOf="@+id/register"
                 android:clickable="true"
                 android:onClick="resultsActivity"
-                android:src="@drawable/ic_assignment_black" />
+                android:src="@drawable/ic_assignment_black"
+                android:transitionName="dfgdfg" />
 
             <ImageView
                 android:id="@+id/imageView"
@@ -86,6 +89,7 @@
                 android:clickable="true"
                 android:onClick="share"
                 android:src="@drawable/ic_share_black" />
+            x
 
         </RelativeLayout>
 

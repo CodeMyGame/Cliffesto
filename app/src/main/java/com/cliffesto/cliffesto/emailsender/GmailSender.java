@@ -2,10 +2,6 @@ package com.cliffesto.cliffesto.emailsender;
 
 import android.os.Environment;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.security.Security;
 import java.util.Properties;
 
@@ -22,6 +18,8 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.mail.util.ByteArrayDataSource;
+
 /**
  * Created by Kapil Gehlot on 1/21/2017.
  */
@@ -59,9 +57,9 @@ public class GmailSender extends javax.mail.Authenticator {
 
     public synchronized void sendMail(String subject, String body, String sender, String recipients) throws Exception {
         try{
-            String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/cliffesto" + "/" + "cliffesto2017AppID.pdf";
+            String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/folder" + "/" + "cliffesto2017AppID.pdf";
             MimeMessage message = new MimeMessage(session);
-            // DataHandler handler = new DataHandler(new ByteArrayDataSource(body.getBytes(), "text/plain"));
+            DataHandler handler = new DataHandler(new ByteArrayDataSource(body.getBytes(), "text/plain"));
             message.setSender(new InternetAddress(sender));
             message.setSubject(subject);
             // Create a multipar message
@@ -88,45 +86,6 @@ public class GmailSender extends javax.mail.Authenticator {
             Transport.send(message);
         }catch(Exception e){
 
-        }
-    }
-
-    public class ByteArrayDataSource implements DataSource {
-        private byte[] data;
-        private String type;
-
-        public ByteArrayDataSource(byte[] data, String type) {
-            super();
-            this.data = data;
-            this.type = type;
-        }
-
-        public ByteArrayDataSource(byte[] data) {
-            super();
-            this.data = data;
-        }
-
-        public void setType(String type) {
-            this.type = type;
-        }
-
-        public String getContentType() {
-            if (type == null)
-                return "application/octet-stream";
-            else
-                return type;
-        }
-
-        public InputStream getInputStream() throws IOException {
-            return new ByteArrayInputStream(data);
-        }
-
-        public String getName() {
-            return "ByteArrayDataSource";
-        }
-
-        public OutputStream getOutputStream() throws IOException {
-            throw new IOException("Not Supported");
         }
     }
 }

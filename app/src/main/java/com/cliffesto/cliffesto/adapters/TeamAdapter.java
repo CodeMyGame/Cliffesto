@@ -117,10 +117,9 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.MyViewHolder> 
         public MyViewHolder(View itemView) {
             super(itemView);
             tvHeading = (TextView) itemView.findViewById(R.id.title);
-            tvDescription = (TextView) itemView.findViewById(R.id.mobile);
+            tvDescription = (TextView) itemView.findViewById(R.id.desg);
             imageView = (ImageView) itemView.findViewById(R.id.head_img);
             call = (ImageView) itemView.findViewById(R.id.call);
-            //batch = (Button)itemView.findViewById(R.id.btn_batch);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         }
     }

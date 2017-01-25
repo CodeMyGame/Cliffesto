@@ -33,13 +33,14 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class tab1 extends Fragment {
-    private RecyclerView mRecyclerView;
-    private List<HomeBean> mUsers = new ArrayList<>();
-    private HomeAdapter mUserAdapter;
+    public Typeface tf;
     ProgressBar progressBar;
     TextView title;
     DatabaseReference myRef;
-    public Typeface tf;
+    private RecyclerView mRecyclerView;
+    private List<HomeBean> mUsers = new ArrayList<>();
+    private HomeAdapter mUserAdapter;
+
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -81,7 +82,9 @@ public class tab1 extends Fragment {
                         for (int i = 0; i < size; i++) {
                             HashMap hashMap1 = (HashMap) hashMap.get(i);
                             HomeBean stu = new HomeBean(hashMap1.get("url").toString(),
-                                    hashMap1.get("title").toString());
+                                    hashMap1.get("title").toString(),
+                                    "comming soon...."
+                            );
                             mUsers.add(stu);
                         }
                         mUserAdapter.notifyDataSetChanged();

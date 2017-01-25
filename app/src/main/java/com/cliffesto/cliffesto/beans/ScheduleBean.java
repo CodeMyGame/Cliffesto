@@ -1,18 +1,18 @@
 package com.cliffesto.cliffesto.beans;
 
 /**
- * Created by Kapil Gehlot on 1/20/2017.
+ * Created by Kapil Gehlot on 1/24/2017.
  */
 
-public class HomeBean {
+public class ScheduleBean {
     public String url;
     public String heading;
-    public String status;
+    public String time;
 
-    public HomeBean(String url, String heading, String description) {
+    public ScheduleBean(String url, String heading, String time) {
         this.url = url;
         this.heading = heading;
-        this.status = description;
+        this.time = time;
     }
 
     public String getUrl() {
@@ -27,7 +27,7 @@ public class HomeBean {
         return heading;
     }
 
-    public String getDescription() {
-        return status;
+    public String getTime() {
+        return time;
     }
 }

@@ -60,7 +60,6 @@ public class tab2 extends Fragment {
         title.setTypeface(tf);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        //GridLayoutManager glm = new GridLayoutManager(getActivity(),2);
         StaggeredGridLayoutManager sglm = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(sglm);
         mUserAdapter = new TeamAdapter(mUsers, getActivity());
@@ -86,7 +85,8 @@ public class tab2 extends Fragment {
                             HashMap hashMap1 = (HashMap) hashMap.get(i);
                             TeamBean stu = new TeamBean(hashMap1.get("dp").toString(),
                                     hashMap1.get("name").toString(),
-                                    hashMap1.get("mobile").toString());
+                                    hashMap1.get("mobile").toString(),
+                                    hashMap1.get("dsig").toString());
                             mUsers.add(stu);
                         }
                         mUserAdapter.notifyDataSetChanged();

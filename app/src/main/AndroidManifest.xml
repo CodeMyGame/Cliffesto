@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.cliffesto.cliffesto">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
@@ -15,16 +16,6 @@
         <activity
             android:name=".activities.MainActivity"
             android:theme="@style/AppTheme">
-
-        </activity>
-        <activity
-            android:name=".activities.SplashActivity"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".activities.RigesterActivity"
-            android:label="@string/title_activity_rigester"
-            android:parentActivityName=".activities.MainActivity"
-            android:theme="@style/AppTheme2">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,14 +23,28 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activities.RigesterActivity"
+            android:label="@string/title_activity_rigester"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/AppTheme2"
+            tools:targetApi="jelly_bean">
+
+        </activity>
+        <activity
             android:name=".activities.EventRegister"
             android:parentActivityName=".activities.MainActivity"
-            android:theme="@style/AppTheme2" />
+            android:theme="@style/AppTheme2"
+            tools:targetApi="jelly_bean" />
         <activity
             android:name=".activities.EnentInfoActivity"
             android:parentActivityName=".activities.MainActivity"
-            android:theme="@style/AppTheme2" />
-        <activity android:name=".activities.ResultsAndMoreActivity" />
+            android:theme="@style/AppTheme2"
+            tools:targetApi="jelly_bean" />
+        <activity
+            android:name=".activities.ResultsAndMoreActivity"
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/AppTheme2"
+            tools:targetApi="jelly_bean" />
     </application>
 
 </manifest>
