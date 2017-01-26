@@ -74,6 +74,7 @@
                 android:layout_marginRight="15dp"
                 android:layout_toLeftOf="@+id/gallary"
                 android:clickable="true"
+                android:onClick="mapIntent"
                 android:src="@drawable/ic_place_black" />
 
             <ImageView
@@ -89,6 +90,28 @@
 
         </RelativeLayout>
 
+        <ImageView
+            android:id="@+id/comments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/real"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:onClick="comments"
+            android:src="@drawable/ic_question_answer_black" />
+
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/real"
+            android:layout_marginTop="20dp"
+            android:background="#8b112233"
+            android:onClick="chotaRegistration"
+            android:text="chopta"
+            android:textColor="#fff" />
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"

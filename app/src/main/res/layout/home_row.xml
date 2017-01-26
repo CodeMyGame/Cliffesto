@@ -33,21 +33,14 @@
             android:textStyle="bold"
             />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/title"
-            android:padding="10sp"
-            android:text="Description" />
 
         <TextView
             android:id="@+id/status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/textView"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/title"
             android:layout_marginEnd="22dp"
             android:layout_marginRight="22dp"
             android:text="Event status" />

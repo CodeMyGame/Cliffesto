@@ -1,10 +1,7 @@
 package com.cliffesto.cliffesto.fragments;
 
 
-import android.content.Context;
 import android.graphics.Typeface;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -41,21 +38,14 @@ public class tab1 extends Fragment {
     private List<HomeBean> mUsers = new ArrayList<>();
     private HomeAdapter mUserAdapter;
 
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        tf = Typeface.createFromAsset(getActivity().getAssets(),"2.ttf");
+        tf = Typeface.createFromAsset(getActivity().getAssets(), "2.ttf");
         myRef = database.getReference("cliffesto");
         View view = inflater.inflate(R.layout.fragment_tab1, container, false);
-        title = (TextView)view.findViewById(R.id.title_cliff);
+        title = (TextView) view.findViewById(R.id.title_cliff);
         title.setTypeface(tf);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
@@ -64,10 +54,7 @@ public class tab1 extends Fragment {
         mRecyclerView.setAdapter(mUserAdapter);
         new MyTask().execute();
         return view;
-
-
     }
-
 
     private class MyTask extends AsyncTask<String, String, String> {
         @Override
@@ -83,8 +70,9 @@ public class tab1 extends Fragment {
                             HashMap hashMap1 = (HashMap) hashMap.get(i);
                             HomeBean stu = new HomeBean(hashMap1.get("url").toString(),
                                     hashMap1.get("title").toString(),
-                                    "comming soon...."
+                                    hashMap1.get("status").toString()
                             );
+
                             mUsers.add(stu);
                         }
                         mUserAdapter.notifyDataSetChanged();

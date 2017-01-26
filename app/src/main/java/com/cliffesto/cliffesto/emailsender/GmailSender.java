@@ -57,7 +57,7 @@ public class GmailSender extends javax.mail.Authenticator {
 
     public synchronized void sendMail(String subject, String body, String sender, String recipients) throws Exception {
         try{
-            String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/folder" + "/" + "cliffesto2017AppID.pdf";
+            String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/bcdhut" + "/" + "abc.pdf";
             MimeMessage message = new MimeMessage(session);
             DataHandler handler = new DataHandler(new ByteArrayDataSource(body.getBytes(), "text/plain"));
             message.setSender(new InternetAddress(sender));

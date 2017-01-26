@@ -40,7 +40,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
     public void onBindViewHolder(final HomeAdapter.MyViewHolder holder, final int position) {
         HomeBean gallary = gallaryList.get(position);
         holder.tvHeading.setText(gallary.getHeading());
-        holder.description.setText(gallary.getDescription());
+        holder.status.setText(gallary.getStatus());
         PicasoClient.downLoadImg(context, gallaryList.get(position).url, holder.imageView);
         if (position > previousPosition) {
             AnimationUtils.animate(holder, true);
@@ -65,11 +65,11 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView tvHeading;
         public ImageView imageView;
-        public TextView description;
+        public TextView status;
         public MyViewHolder(View itemView) {
             super(itemView);
             tvHeading = (TextView) itemView.findViewById(R.id.title);
-            description = (TextView) itemView.findViewById(R.id.status);
+            status = (TextView) itemView.findViewById(R.id.status);
             imageView = (ImageView) itemView.findViewById(R.id.head_img);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         }

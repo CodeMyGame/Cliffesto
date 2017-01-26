@@ -1,66 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 <RelativeLayout
+    android:id="@+id/relativeLayout"
     android:layout_width="150sp"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    android:id="@+id/relativeLayout">
+    android:background="@color/colorPrimary">
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="10sp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="10sp"
         android:src="@drawable/logo"/>
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_person_black_land"
         android:id="@+id/register"
-        android:onClick="regiserActivity"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:clickable="true" />
-    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:clickable="true"
-        android:src="@drawable/ic_place_black_land"
-        android:layout_marginTop="5dp"
+        android:onClick="regiserActivity"
+        android:src="@drawable/ic_person_black_land" />
+    <ImageView
+        android:id="@+id/reach"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/register"
         android:layout_centerHorizontal="true"
-        android:id="@+id/reach" />
+        android:layout_marginTop="5dp"
+        android:clickable="true"
+        android:onClick="mapIntent"
+        android:src="@drawable/ic_place_black_land" />
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:src="@drawable/ic_share_black_land"
-        android:layout_marginTop="5dp"
-        android:onClick="share"
-        android:clickable="true"
-       android:layout_below="@+id/reach"
+        android:layout_below="@+id/reach"
         android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="5dp"
+        android:clickable="true"
+        android:onClick="share"
+        android:src="@drawable/ic_share_black_land"
 
         />
     <TextView
+        android:id="@+id/title_cliff"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/title_cliff"
-        android:textColor="#fff"
-        android:textStyle="bold"
-        android:textSize="20dp"
+        android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/imageView"
-        android:layout_centerVertical="true"/>
+        android:textColor="#fff"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="300sp"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/relativeLayout"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/relativeLayout">
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
@@ -72,7 +74,7 @@
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true" />
     </RelativeLayout>
 </RelativeLayout>

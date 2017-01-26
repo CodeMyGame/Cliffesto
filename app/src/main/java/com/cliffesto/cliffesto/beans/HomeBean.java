@@ -9,10 +9,10 @@ public class HomeBean {
     public String heading;
     public String status;
 
-    public HomeBean(String url, String heading, String description) {
+    public HomeBean(String url, String heading, String status) {
         this.url = url;
         this.heading = heading;
-        this.status = description;
+        this.status = status;
     }
 
     public String getUrl() {
@@ -27,7 +27,7 @@ public class HomeBean {
         return heading;
     }
 
-    public String getDescription() {
+    public String getStatus() {
         return status;
     }
 }

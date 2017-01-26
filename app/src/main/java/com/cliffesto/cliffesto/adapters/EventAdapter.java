@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.cliffesto.cliffesto.R;
 import com.cliffesto.cliffesto.activities.EnentInfoActivity;
 import com.cliffesto.cliffesto.activities.EventRegister;
+import com.cliffesto.cliffesto.activities.MainActivity;
 import com.cliffesto.cliffesto.beans.EventBean;
 import com.cliffesto.cliffesto.picaso.AnimationUtils;
 import com.cliffesto.cliffesto.picaso.PicasoClient;
@@ -63,6 +64,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
         holder.event_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MainActivity.vibe.vibrate(15);
                 Intent intent = new Intent(context, EventRegister.class);
                 intent.putExtra("eventname", holder.tvHeading.getText().toString());
                 context.startActivity(intent);
@@ -72,6 +74,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View v) {
+                MainActivity.vibe.vibrate(15);
                 Intent intent = new Intent(context, EnentInfoActivity.class);
                 intent.putExtra("position", position);
                 context.startActivity(intent);

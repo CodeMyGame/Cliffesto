@@ -113,11 +113,11 @@ public class RigesterActivity extends AppCompatActivity {
         doc = new Document(PageSize.A4, 0f, 0f, 0f, 0f);
 
         try {
-            String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/folder";
+            String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/bcdhut";
             dir = new File(path);
             if (!dir.exists())
                 dir.mkdirs();
-            file = new File(dir, "cliffesto2017AppID.pdf");
+            file = new File(dir, "abc.pdf");
             if (file.exists()) {
                 file.delete();
             } else {
@@ -223,7 +223,7 @@ public class RigesterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rigester);
         progressDialog = new ProgressDialog(RigesterActivity.this);
-        progressDialog.setMessage("Registring.....");
+        progressDialog.setMessage("Registering.....");
         progressDialog.setCancelable(false);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         name = (EditText) findViewById(R.id.name);
@@ -236,7 +236,7 @@ public class RigesterActivity extends AppCompatActivity {
         register.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                MainActivity.vibe.vibrate(15);
                 try {
                     view = v;
                     if (validation()) {

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cliffesto.cliffesto.R;
+import com.cliffesto.cliffesto.activities.MainActivity;
 import com.cliffesto.cliffesto.beans.SponsersBean;
 import com.cliffesto.cliffesto.picaso.AnimationUtils;
 import com.cliffesto.cliffesto.picaso.PicasoClient;
@@ -77,6 +78,7 @@ public class SponsersAdapter extends RecyclerView.Adapter<SponsersAdapter.MyView
 //
 //                    }
 //                });
+                MainActivity.vibe.vibrate(15);
                 Toast.makeText(context, "sponsers link...", Toast.LENGTH_SHORT).show();
             }
         });

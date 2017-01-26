@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.cliffesto.cliffesto">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -26,25 +26,30 @@
             android:name=".activities.RigesterActivity"
             android:label="@string/title_activity_rigester"
             android:parentActivityName=".activities.MainActivity"
-            android:theme="@style/AppTheme2"
-            tools:targetApi="jelly_bean">
+            android:theme="@style/AppTheme2">
 
         </activity>
         <activity
             android:name=".activities.EventRegister"
+            android:label="Event registration"
             android:parentActivityName=".activities.MainActivity"
-            android:theme="@style/AppTheme2"
-            tools:targetApi="jelly_bean" />
+            android:theme="@style/AppTheme2" />
         <activity
             android:name=".activities.EnentInfoActivity"
+            android:label="Event information"
             android:parentActivityName=".activities.MainActivity"
-            android:theme="@style/AppTheme2"
-            tools:targetApi="jelly_bean" />
+            android:theme="@style/AppTheme2" />
         <activity
             android:name=".activities.ResultsAndMoreActivity"
+            android:label="Schedule"
             android:parentActivityName=".activities.MainActivity"
-            android:theme="@style/AppTheme2"
-            tools:targetApi="jelly_bean" />
+            android:theme="@style/AppTheme2" />
+
+        <service android:name=".MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

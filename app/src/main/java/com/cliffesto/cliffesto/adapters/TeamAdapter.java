@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cliffesto.cliffesto.R;
+import com.cliffesto.cliffesto.activities.MainActivity;
 import com.cliffesto.cliffesto.beans.TeamBean;
 import com.cliffesto.cliffesto.picaso.AnimationUtils;
 import com.cliffesto.cliffesto.picaso.PicasoClient;
@@ -50,6 +51,7 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.MyViewHolder> 
     }
 
     public void call(String no) {
+        MainActivity.vibe.vibrate(15);
         Intent callIntent = new Intent(Intent.ACTION_CALL);
         callIntent.setData(Uri.parse("tel:" + no));
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {

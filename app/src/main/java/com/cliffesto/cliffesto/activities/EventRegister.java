@@ -43,6 +43,7 @@ public class EventRegister extends AppCompatActivity {
         regButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
+                MainActivity.vibe.vibrate(15);
                 isclick = true;
                 StringBuilder stringBuilder = new StringBuilder(cliffid.getText().toString());
                 if (stringBuilder.length() == 12) {
