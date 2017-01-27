@@ -8,10 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.cliffesto.cliffesto.R;
 import com.cliffesto.cliffesto.beans.ScheduleBean;
 import com.cliffesto.cliffesto.picaso.AnimationUtils;
-import com.cliffesto.cliffesto.picaso.PicasoClient;
 
 import java.util.List;
 
@@ -41,7 +41,13 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.MyView
         ScheduleBean gallary = gallaryList.get(position);
         holder.tvHeading.setText(gallary.getHeading());
         holder.description.setText(gallary.getTime());
-        PicasoClient.downLoadImg(context, gallaryList.get(position).url, holder.imageView);
+        Glide
+                .with(context)
+                .load(gallaryList.get(position).url)
+                .centerCrop()
+                .placeholder(R.drawable.img_gallary)
+                .crossFade()
+                .into(holder.imageView);
         if (position > previousPosition) {
             AnimationUtils.animate(holder, true);
         } else {

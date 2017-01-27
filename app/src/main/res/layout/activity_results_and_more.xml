@@ -16,10 +16,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <TextView
+                android:id="@+id/six"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#a4c7ea"
+                android:text="16th(Inaugration)"
+                android:textSize="20dp" />
             <RelativeLayout
                 android:id="@+id/rl1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/six">
 
                 <TextView
                     android:id="@+id/day1"

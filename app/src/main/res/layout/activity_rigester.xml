@@ -103,6 +103,12 @@
                     android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 
+            <CheckBox
+                android:id="@+id/term"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="I accept all terms and conditions" />
             <Button
                 android:id="@+id/email_sign_in_button"
                 style="?android:textAppearanceSmall"

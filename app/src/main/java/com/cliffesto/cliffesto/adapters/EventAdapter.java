@@ -11,13 +11,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.cliffesto.cliffesto.R;
 import com.cliffesto.cliffesto.activities.EnentInfoActivity;
 import com.cliffesto.cliffesto.activities.EventRegister;
 import com.cliffesto.cliffesto.activities.MainActivity;
 import com.cliffesto.cliffesto.beans.EventBean;
 import com.cliffesto.cliffesto.picaso.AnimationUtils;
-import com.cliffesto.cliffesto.picaso.PicasoClient;
 
 import java.util.List;
 
@@ -29,7 +29,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
     int previousPosition = 0;
     Context context;
     private List<EventBean> gallaryList;
-
 
     public EventAdapter(List<EventBean> gList, Context c) {
         this.gallaryList = gList;
@@ -47,8 +46,13 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
     public void onBindViewHolder(final EventAdapter.MyViewHolder holder, final int position) {
         EventBean gallary = gallaryList.get(position);
         holder.tvHeading.setText(gallary.getHeading());
-        //  holder.tvDescription.setText(gallary.getDescription());
-        PicasoClient.downLoadImg(context, gallaryList.get(position).url, holder.imageView);
+        Glide
+                .with(context)
+                .load(gallaryList.get(position).url)
+                .centerCrop()
+                .placeholder(R.drawable.img_gallary)
+                .crossFade()
+                .into(holder.imageView);
         if (position > previousPosition) {
             AnimationUtils.animate(holder, true);
         } else {
@@ -89,7 +93,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView tvHeading;
-        //  public TextView tvDescripvetion;
         public ImageView imageView;
         ImageView event_register, more;
 

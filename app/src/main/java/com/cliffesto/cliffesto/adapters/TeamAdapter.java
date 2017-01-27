@@ -14,11 +14,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.cliffesto.cliffesto.R;
 import com.cliffesto.cliffesto.activities.MainActivity;
 import com.cliffesto.cliffesto.beans.TeamBean;
 import com.cliffesto.cliffesto.picaso.AnimationUtils;
-import com.cliffesto.cliffesto.picaso.PicasoClient;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -67,7 +67,13 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.MyViewHolder> 
         TeamBean gallary = gallaryList.get(position);
         holder.tvHeading.setText(gallary.getHeading());
         holder.tvDescription.setText(gallary.getDescription());
-        PicasoClient.downLoadImg(context, gallaryList.get(position).url, holder.imageView);
+        Glide
+                .with(context)
+                .load(gallaryList.get(position).url)
+                .centerCrop()
+                .placeholder(R.drawable.img_gallary)
+                .crossFade()
+                .into(holder.imageView);
         if (position > previousPosition) {
             AnimationUtils.animate(holder, true);
         } else {
@@ -102,8 +108,6 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.MyViewHolder> 
                 });
             }
         });
-
-
     }
 
     @Override

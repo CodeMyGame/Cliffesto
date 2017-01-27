@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +42,8 @@ public class ResultsAndMoreActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results_and_more);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference("cliffesto");
@@ -122,7 +125,6 @@ public class ResultsAndMoreActivity extends AppCompatActivity {
                         adapter2.notifyDataSetChanged();
                         progressBar2.setVisibility(View.INVISIBLE);
                     } else {
-                        Toast.makeText(ResultsAndMoreActivity.this, "comming soon!!!", Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -154,7 +156,6 @@ public class ResultsAndMoreActivity extends AppCompatActivity {
                         adapter3.notifyDataSetChanged();
                         progressBar3.setVisibility(View.INVISIBLE);
                     } else {
-                        Toast.makeText(ResultsAndMoreActivity.this, "comming soon!!!", Toast.LENGTH_SHORT).show();
                     }
                 }
 

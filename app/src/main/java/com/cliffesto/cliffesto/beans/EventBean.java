@@ -7,12 +7,9 @@ package com.cliffesto.cliffesto.beans;
 public class EventBean {
     public String url;
     public String heading;
-    //public String description;
-
     public EventBean(String url, String heading) {
         this.url = url;
         this.heading = heading;
-        // this.description = description;
     }
 
     public String getUrl() {
@@ -26,8 +23,4 @@ public class EventBean {
     public String getHeading() {
         return heading;
     }
-
-//    public String getDescription() {
-//        return description;
-//    }
 }

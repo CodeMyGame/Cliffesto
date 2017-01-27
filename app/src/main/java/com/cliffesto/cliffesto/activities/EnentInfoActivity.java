@@ -2,6 +2,7 @@ package com.cliffesto.cliffesto.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.cliffesto.cliffesto.R;
@@ -20,6 +21,8 @@ public class EnentInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enent_info);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         textView = (TextView) findViewById(R.id.description);
         int position = getIntent().getIntExtra("position", 0);

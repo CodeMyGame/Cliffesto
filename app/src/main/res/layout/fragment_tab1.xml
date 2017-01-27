@@ -1,22 +1,12 @@
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="match_parent"
-    card_view:cardCornerRadius="47dp"
-    card_view:cardElevation="3dp"
-    card_view:cardPreventCornerOverlap="false"
-    tools:context="com.cliffesto.cliffesto.fragments.tab1">
-    <RelativeLayout
-
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
         <RelativeLayout
             android:id="@+id/real"
             android:layout_width="match_parent"
-            android:layout_height="90sp"
+            android:layout_height="65sp"
             android:background="@color/colorPrimary">
 
             <TextView
@@ -90,44 +80,45 @@
 
         </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/comments"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/real"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:onClick="comments"
-            android:src="@drawable/ic_question_answer_black" />
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/real">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" />
+
+    <ImageView
+        android:id="@+id/comments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/real"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:onClick="comments"
+        android:src="@drawable/ic_question_answer_black" />
         <Button
-            android:layout_width="100dp"
+            android:layout_width="70dp"
             android:layout_height="40dp"
             android:layout_below="@+id/real"
             android:layout_marginTop="20dp"
-            android:background="#8b112233"
+            android:background="#83112233"
             android:onClick="chotaRegistration"
             android:text="chopta"
             android:textColor="#fff" />
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/real">
 
-        </android.support.v7.widget.RecyclerView>
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true" />
 
     </RelativeLayout>
 
 
-</android.support.v7.widget.CardView>

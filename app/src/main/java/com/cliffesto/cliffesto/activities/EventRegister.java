@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -31,6 +32,8 @@ public class EventRegister extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.event_register);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         event_name = getIntent().getStringExtra("eventname");
@@ -72,7 +75,7 @@ public class EventRegister extends AppCompatActivity {
                                     return;
                                 } else {
                                     EventregistrationBean eventregistrationBean = new EventregistrationBean(eventname.getText().toString());
-                                    mDatabase.child("cliffesto").child("event_register").child("" + getid).setValue(eventregistrationBean);
+                                    mDatabase.child("cliffesto").child("event_register").child("APPCLIFF" + getid).setValue(eventregistrationBean);
                                     isclick = false;
                                     Snackbar.make(v, "Successfully registered!!!!", Snackbar.LENGTH_LONG)
                                             .setAction("Action", null).show();

@@ -7,10 +7,6 @@ package com.cliffesto.cliffesto.beans;
 public class EventregistrationBean {
     public String eventname;
 
-    public EventregistrationBean() {
-
-    }
-
     public EventregistrationBean(String eventname) {
         this.eventname = eventname;
 

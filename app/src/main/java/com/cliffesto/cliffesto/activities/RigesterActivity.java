@@ -1,10 +1,8 @@
 package com.cliffesto.cliffesto.activities;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -13,7 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -61,6 +61,7 @@ public class RigesterActivity extends AppCompatActivity {
     EditText name;
     EditText email;
     EditText phone;
+    CheckBox terms;
     EditText college;
     Button register;
     String getname;
@@ -76,14 +77,6 @@ public class RigesterActivity extends AppCompatActivity {
     FileOutputStream fOut;
     ProgressDialog progressDialog;
     private DatabaseReference mDatabase;
-
-    public void viewPDF() {
-        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/cliffesto/" + "cliffesto2017AppID.pdf");
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.fromFile(file), "application/pdf");
-        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-        startActivity(intent);
-    }
 
     Bitmap encodeAsBitmap(String str) throws WriterException {
         BitMatrix result;
@@ -164,16 +157,12 @@ public class RigesterActivity extends AppCompatActivity {
                     FontFactory.getFont(FontFactory.HELVETICA, 20f)));
             Paragraph p2 = new Paragraph(new Phrase(250f, "Events __________",
                     FontFactory.getFont(FontFactory.HELVETICA, 20f)));
-
             p1.setAlignment(Element.ALIGN_CENTER);
-
             p2.setAlignment(Element.ALIGN_CENTER);
-//            p2.setAlignment(Element.ALIGN_LEFT);
             p3.setIndentationLeft(10);
             doc.add(p3);
             doc.add(p2);
             doc.add(p1);
-//            doc.add(p2);
         } catch (DocumentException de) {
             Log.e("PDFCreator", "DocumentException:" + de);
         } catch (IOException e) {
@@ -184,6 +173,7 @@ public class RigesterActivity extends AppCompatActivity {
             doc.close();
         }
     }
+
     public boolean validation() {
         boolean valid = true;
         getname = name.getText().toString().trim();
@@ -209,6 +199,12 @@ public class RigesterActivity extends AppCompatActivity {
         } else {
             name.setError(null);
         }
+        if (!terms.isChecked()) {
+            valid = false;
+            terms.setError("");
+        } else {
+            terms.setError(null);
+        }
         if (getmobile.isEmpty() || phone.length() > 12 || phone.length() < 10) {
             phone.setError("Enter valid mobile number");
             valid = false;
@@ -222,6 +218,8 @@ public class RigesterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rigester);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         progressDialog = new ProgressDialog(RigesterActivity.this);
         progressDialog.setMessage("Registering.....");
         progressDialog.setCancelable(false);
@@ -230,8 +228,9 @@ public class RigesterActivity extends AppCompatActivity {
         email = (EditText) findViewById(R.id.email);
         phone = (EditText) findViewById(R.id.phone);
         college = (EditText) findViewById(R.id.college);
+        terms = (CheckBox) findViewById(R.id.term);
         register = (Button) findViewById(R.id.email_sign_in_button);
-        cliffidText = (TextView)findViewById(R.id.textViewCliffid);
+        cliffidText = (TextView) findViewById(R.id.textViewCliffid);
         isClick = false;
         register.setOnClickListener(new OnClickListener() {
             @Override
@@ -240,22 +239,21 @@ public class RigesterActivity extends AppCompatActivity {
                 try {
                     view = v;
                     if (validation()) {
-                        isClick =true;
+                        isClick = true;
                         register.setText("please wait....");
                         register.setEnabled(false);
                         RegisterBean registerBean = new RegisterBean(
-                                getname,getemail,getmobile,getcollege);
+                                getname, getemail, getmobile, getcollege);
                         mDatabase.child("cliffesto").child("users").child(getmobile).setValue(registerBean);
                         mDatabase.child("cliffesto").child("cliffid").addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                if(isClick){
+                                if (isClick) {
                                     cliffid = dataSnapshot.getValue().toString();
                                     isClick = false;
-                                    mDatabase.child("cliffesto").child("cliffid").setValue(Integer.parseInt(cliffid)+1);
+                                    mDatabase.child("cliffesto").child("cliffid").setValue(Integer.parseInt(cliffid) + 1);
                                     new MyTask().execute();
                                 }
-
                             }
 
                             @Override
@@ -263,14 +261,12 @@ public class RigesterActivity extends AppCompatActivity {
 
                             }
                         });
-
                     }
                 } catch (Exception e) {
                     Toast.makeText(RigesterActivity.this, "" + e.toString(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
     }
 
     private class MyTask extends AsyncTask<String, String, String> {
@@ -301,7 +297,6 @@ public class RigesterActivity extends AppCompatActivity {
             super.onPostExecute(s);
             progressDialog.dismiss();
             cliffidText.setText("Your cliffesto app ID and attachment sent to your email address please download this attachment");
-            // Toast.makeText(RigesterActivity.this, "Successfully registered!!!", Toast.LENGTH_SHORT).show();
             Snackbar.make(view, "Successfully registered!!!!", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
             name.setText("");
@@ -310,8 +305,6 @@ public class RigesterActivity extends AppCompatActivity {
             college.setText("");
             register.setEnabled(true);
             register.setText("register");
-            //file.delete();
-
         }
     }
 }
