@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -49,7 +51,15 @@ public class MainActivity extends AppCompatActivity {
     boolean isInt;
     int getid;
     boolean isclick = false;
+    Handler mHandler = new Handler();
+    boolean isRunning = true;
     private DatabaseReference mDatabase;
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnected();
+    }
 
     @Override
     public void onBackPressed() {
@@ -72,6 +82,26 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                while (isRunning) {
+                    try {
+                        Thread.sleep(10000);
+                        mHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (!isNetworkAvailable()) {
+                                    Toast.makeText(MainActivity.this, "Check your network connection!!!", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    } catch (Exception e) {
+                    }
+                }
+            }
+        }).start();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/bcdhut";
         File dir = new File(path);
@@ -171,8 +201,12 @@ public class MainActivity extends AppCompatActivity {
                     comment.setError("feedback");
                 } else {
                     String comments = comment.getText().toString();
-                    Toast.makeText(MainActivity.this, "Thank you for your feedback!!!!", Toast.LENGTH_SHORT).show();
-                    comment.setText("");
+                    if (isNetworkAvailable()) {
+                        Toast.makeText(MainActivity.this, "Thank you for your feedback!!!!", Toast.LENGTH_SHORT).show();
+                        comment.setText("");
+                    } else {
+                        Toast.makeText(MainActivity.this, "Check your network connection!!!!", Toast.LENGTH_SHORT).show();
+                    }
 
                 }
             }
