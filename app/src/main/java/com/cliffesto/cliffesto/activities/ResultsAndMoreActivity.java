@@ -1,6 +1,5 @@
 package com.cliffesto.cliffesto.activities;
 
-import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cliffesto.cliffesto.R;
@@ -27,10 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ResultsAndMoreActivity extends AppCompatActivity {
-
-    public Typeface tf;
     ProgressBar progressBar, progressBar2, progressBar3;
-    TextView title;
     DatabaseReference myRef;
     private RecyclerView mRecyclerView, recyclerView2, recyclerView3;
     private List<ScheduleBean> mUsers = new ArrayList<>();
@@ -44,7 +39,6 @@ public class ResultsAndMoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_results_and_more);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference("cliffesto");
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -76,7 +70,7 @@ public class ResultsAndMoreActivity extends AppCompatActivity {
     private class MyTask extends AsyncTask<String, String, String> {
         @Override
         protected String doInBackground(String... params) {
-            myRef.child("schedule").child("17").addValueEventListener(new ValueEventListener() {
+            myRef.child("schedule").child("18").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
@@ -87,7 +81,8 @@ public class ResultsAndMoreActivity extends AppCompatActivity {
                             HashMap hashMap1 = (HashMap) hashMap.get(i);
                             ScheduleBean stu = new ScheduleBean(hashMap1.get("url").toString(),
                                     hashMap1.get("title").toString(),
-                                    hashMap1.get("time").toString());
+                                    hashMap1.get("time").toString(),
+                                    hashMap1.get("venue").toString());
                             mUsers.add(stu);
                         }
                         mUserAdapter.notifyDataSetChanged();
@@ -108,7 +103,7 @@ public class ResultsAndMoreActivity extends AppCompatActivity {
     private class MyTask2 extends AsyncTask<String, String, String> {
         @Override
         protected String doInBackground(String... params) {
-            myRef.child("schedule").child("18").addValueEventListener(new ValueEventListener() {
+            myRef.child("schedule").child("19").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
@@ -119,7 +114,8 @@ public class ResultsAndMoreActivity extends AppCompatActivity {
                             HashMap hashMap1 = (HashMap) hashMap.get(i);
                             ScheduleBean stu = new ScheduleBean(hashMap1.get("url").toString(),
                                     hashMap1.get("title").toString(),
-                                    hashMap1.get("time").toString());
+                                    hashMap1.get("time").toString(),
+                                    hashMap1.get("venue").toString());
                             mUsers2.add(stu);
                         }
                         adapter2.notifyDataSetChanged();
@@ -139,7 +135,7 @@ public class ResultsAndMoreActivity extends AppCompatActivity {
     private class MyTask3 extends AsyncTask<String, String, String> {
         @Override
         protected String doInBackground(String... params) {
-            myRef.child("schedule").child("19").addValueEventListener(new ValueEventListener() {
+            myRef.child("schedule").child("20").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
@@ -150,7 +146,8 @@ public class ResultsAndMoreActivity extends AppCompatActivity {
                             HashMap hashMap1 = (HashMap) hashMap.get(i);
                             ScheduleBean stu = new ScheduleBean(hashMap1.get("url").toString(),
                                     hashMap1.get("title").toString(),
-                                    hashMap1.get("time").toString());
+                                    hashMap1.get("time").toString(),
+                                    hashMap1.get("venue").toString());
                             mUsers3.add(stu);
                         }
                         adapter3.notifyDataSetChanged();

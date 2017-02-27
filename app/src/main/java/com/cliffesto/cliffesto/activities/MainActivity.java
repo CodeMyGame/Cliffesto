@@ -18,10 +18,12 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -31,6 +33,7 @@ import com.cliffesto.cliffesto.fragments.tab1;
 import com.cliffesto.cliffesto.fragments.tab2;
 import com.cliffesto.cliffesto.fragments.tab3;
 import com.cliffesto.cliffesto.fragments.tab4;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     boolean isclick = false;
     Handler mHandler = new Handler();
     boolean isRunning = true;
+    FloatingActionsMenu fabMenu;
     private DatabaseReference mDatabase;
 
     private boolean isNetworkAvailable() {
@@ -102,6 +106,28 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }).start();
+        final FrameLayout frameLayout = (FrameLayout) findViewById(R.id.frame_layout);
+        frameLayout.getBackground().setAlpha(0);
+        fabMenu = (FloatingActionsMenu) findViewById(R.id.fab_menu);
+        fabMenu.setOnFloatingActionsMenuUpdateListener(new FloatingActionsMenu.OnFloatingActionsMenuUpdateListener() {
+            @Override
+            public void onMenuExpanded() {
+                frameLayout.getBackground().setAlpha(240);
+                frameLayout.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        fabMenu.collapse();
+                        return true;
+                    }
+                });
+            }
+
+            @Override
+            public void onMenuCollapsed() {
+                frameLayout.getBackground().setAlpha(0);
+                frameLayout.setOnTouchListener(null);
+            }
+        });
         mDatabase = FirebaseDatabase.getInstance().getReference();
         String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/bcdhut";
         File dir = new File(path);
@@ -186,37 +212,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void comments(View view) {
-        vibe.vibrate(15);
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = this.getLayoutInflater();
-        View v = inflater.inflate(R.layout.comment_layout, null);
-        ImageView send = (ImageView) v.findViewById(R.id.send);
-        comment = (EditText) v.findViewById(R.id.editText);
-        send.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                vibe.vibrate(15);
-                if (comment.getText().length() == 0) {
-                    comment.setError("feedback");
-                } else {
-                    String comments = comment.getText().toString();
-                    if (isNetworkAvailable()) {
-                        Toast.makeText(MainActivity.this, "Thank you for your feedback!!!!", Toast.LENGTH_SHORT).show();
-                        comment.setText("");
-                    } else {
-                        Toast.makeText(MainActivity.this, "Check your network connection!!!!", Toast.LENGTH_SHORT).show();
-                    }
-
-                }
-            }
-        });
-        builder.setView(v);
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-    }
-
-    public void chotaRegistration(View view) {
+    public void choptaRegistration(View view) {
         vibe.vibrate(15);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
@@ -276,5 +272,40 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
 
+    }
+
+    public void advisoryTeam(View view) {
+        vibe.vibrate(12);
+        startActivity(new Intent(MainActivity.this, AdvisoryActivity.class));
+    }
+
+    public void feedback(View view) {
+        vibe.vibrate(15);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        View v = inflater.inflate(R.layout.comment_layout, null);
+        ImageView send = (ImageView) v.findViewById(R.id.send);
+        comment = (EditText) v.findViewById(R.id.editText);
+        send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vibe.vibrate(15);
+                if (comment.getText().length() == 0) {
+                    comment.setError("feedback");
+                } else {
+                    String comments = comment.getText().toString();
+                    if (isNetworkAvailable()) {
+                        Toast.makeText(MainActivity.this, "Thank you for your feedback!!!!", Toast.LENGTH_SHORT).show();
+                        comment.setText("");
+                    } else {
+                        Toast.makeText(MainActivity.this, "Check your network connection!!!!", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+        });
+        builder.setView(v);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }

@@ -32,6 +32,18 @@
                 android:layout_below="@+id/image"
                 android:padding="25dp"
                 android:text="discription...." />
+
+            <Button
+                android:id="@+id/btndownload"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/description"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@color/colorPrimary"
+                android:onClick="downloadPDF"
+                android:text="Download pdf"
+                android:textColor="#fff" />
         </RelativeLayout>
     </ScrollView>
 </android.support.v7.widget.CardView>

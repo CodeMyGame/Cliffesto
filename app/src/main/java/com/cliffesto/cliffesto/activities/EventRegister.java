@@ -1,12 +1,15 @@
 package com.cliffesto.cliffesto.activities;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.cliffesto.cliffesto.R;
 import com.cliffesto.cliffesto.beans.EventregistrationBean;
@@ -32,9 +35,13 @@ public class EventRegister extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.event_register);
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1
+            );
+        }
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         event_name = getIntent().getStringExtra("eventname");
         cliffid = (EditText) findViewById(R.id.cliffid);
@@ -77,8 +84,7 @@ public class EventRegister extends AppCompatActivity {
                                     EventregistrationBean eventregistrationBean = new EventregistrationBean(eventname.getText().toString());
                                     mDatabase.child("cliffesto").child("event_register").child("APPCLIFF" + getid).setValue(eventregistrationBean);
                                     isclick = false;
-                                    Snackbar.make(v, "Successfully registered!!!!", Snackbar.LENGTH_LONG)
-                                            .setAction("Action", null).show();
+                                    Toast.makeText(EventRegister.this, "Registered successfully!!!", Toast.LENGTH_SHORT).show();
                                     cliffid.setText("");
                                 }
                             }

@@ -21,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="#a4c7ea"
-                android:text="16th(Inaugration)"
+                android:text="17th(Inaugration)"
                 android:textSize="20dp" />
             <RelativeLayout
                 android:id="@+id/rl1"
@@ -34,13 +34,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="#dee0e2"
-                    android:text="17th Feb"
+                    android:text="18th Feb"
                     android:textSize="20dp" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="140dp"
+                    android:layout_height="wrap_content"
                     android:layout_below="@+id/day1">
 
                 </android.support.v7.widget.RecyclerView>
@@ -74,12 +74,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="#dee0e2"
-                    android:text="18th Feb"
+                    android:text="19th Feb"
                     android:textSize="20dp" />
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerView2"
                     android:layout_width="match_parent"
-                    android:layout_height="140dp"
+                    android:layout_height="wrap_content"
                     android:layout_below="@+id/day2">
 
                 </android.support.v7.widget.RecyclerView>
@@ -107,13 +107,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="#dee0e2"
-                    android:text="19th Feb"
+                    android:text="20th Feb"
                     android:textSize="20dp" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerView3"
                     android:layout_width="match_parent"
-                    android:layout_height="140dp"
+                    android:layout_height="wrap_content"
                     android:layout_below="@+id/day3">
 
                 </android.support.v7.widget.RecyclerView>

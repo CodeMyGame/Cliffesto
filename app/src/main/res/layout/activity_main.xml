@@ -9,6 +9,9 @@
 
     </RelativeLayout>
 
+    <include layout="@layout/overlay" />
+
+    <include layout="@layout/ttest" />
     <com.roughike.bottombar.BottomBar
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"

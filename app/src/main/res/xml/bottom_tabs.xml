@@ -14,5 +14,5 @@
     <tab
         icon="@drawable/ic_attach_money"
         id="@+id/tab_sponsers"
-        title="Sponsers" />
+        title="Sponsors" />
 </tabs>

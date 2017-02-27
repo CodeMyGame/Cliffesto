@@ -1,21 +1,18 @@
-package com.cliffesto.cliffesto.fragments;
+package com.cliffesto.cliffesto.activities;
 
-
-import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cliffesto.cliffesto.R;
-import com.cliffesto.cliffesto.adapters.HomeAdapter;
-import com.cliffesto.cliffesto.beans.HomeBean;
+import com.cliffesto.cliffesto.adapters.MediaAdapter;
+import com.cliffesto.cliffesto.beans.SponsersBean;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,41 +23,34 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class tab1 extends Fragment {
-    public Typeface tf;
+public class AdvisoryActivity extends AppCompatActivity {
     ProgressBar progressBar;
-    TextView title;
     DatabaseReference myRef;
     private RecyclerView mRecyclerView;
-    private List<HomeBean> mUsers = new ArrayList<>();
-    private HomeAdapter mUserAdapter;
+    private List<SponsersBean> mUsers = new ArrayList<>();
+    private MediaAdapter mUserAdapter;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_advisory);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        tf = Typeface.createFromAsset(getActivity().getAssets(), "2.ttf");
-
         myRef = database.getReference("cliffesto");
-        View view = inflater.inflate(R.layout.fragment_tab1, container, false);
-        title = (TextView) view.findViewById(R.id.title_cliff);
-        title.setTypeface(tf);
-        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mUserAdapter = new HomeAdapter(mUsers, getActivity());
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        StaggeredGridLayoutManager sglm = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(sglm);
+        mUserAdapter = new MediaAdapter(mUsers, this);
         mRecyclerView.setAdapter(mUserAdapter);
         new MyTask().execute();
-        return view;
     }
 
     private class MyTask extends AsyncTask<String, String, String> {
         @Override
         protected String doInBackground(String... params) {
-            myRef.child("home").addValueEventListener(new ValueEventListener() {
+            myRef.child("ateams").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
@@ -69,15 +59,14 @@ public class tab1 extends Fragment {
                         int size = hashMap.size();
                         for (int i = 0; i < size; i++) {
                             HashMap hashMap1 = (HashMap) hashMap.get(i);
-                            HomeBean stu = new HomeBean(hashMap1.get("url").toString(),
-                                    hashMap1.get("title").toString(),
-                                    hashMap1.get("status").toString()
-                            );
-
+                            SponsersBean stu = new SponsersBean(hashMap1.get("dp").toString(),
+                                    hashMap1.get("name").toString());
                             mUsers.add(stu);
                         }
                         mUserAdapter.notifyDataSetChanged();
                         progressBar.setVisibility(View.INVISIBLE);
+                    } else {
+                        Toast.makeText(AdvisoryActivity.this, "Database empty!!!!", Toast.LENGTH_SHORT).show();
                     }
                 }
 

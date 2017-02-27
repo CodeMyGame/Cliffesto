@@ -1,6 +1,7 @@
 package com.cliffesto.cliffesto.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.cliffesto.cliffesto.R;
+import com.cliffesto.cliffesto.activities.HomeNextActivity;
 import com.cliffesto.cliffesto.beans.HomeBean;
 import com.cliffesto.cliffesto.picaso.AnimationUtils;
 
@@ -44,7 +46,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
         Glide
                 .with(context)
                 .load(gallaryList.get(position).url)
-                .centerCrop()
                 .placeholder(R.drawable.img_gallary)
                 .crossFade()
                 .into(holder.imageView);
@@ -60,6 +61,14 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
             AnimationUtils.animate(holder, false);
         }
         previousPosition = position;
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, HomeNextActivity.class);
+                intent.putExtra("position", position);
+                context.startActivity(intent);
+            }
+        });
 
     }
 

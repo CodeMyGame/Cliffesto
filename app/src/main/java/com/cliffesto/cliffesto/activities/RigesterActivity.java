@@ -1,19 +1,25 @@
 package com.cliffesto.cliffesto.activities;
 
+import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -211,6 +217,14 @@ public class RigesterActivity extends AppCompatActivity {
         } else {
             phone.setError(null);
         }
+        if (ActivityCompat.checkSelfPermission(RigesterActivity.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(RigesterActivity.this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1
+            );
+            valid = false;
+        } else {
+            //
+        }
         return valid;
     }
 
@@ -220,6 +234,12 @@ public class RigesterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_rigester);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (ActivityCompat.checkSelfPermission(RigesterActivity.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(RigesterActivity.this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1
+            );
+        }
         progressDialog = new ProgressDialog(RigesterActivity.this);
         progressDialog.setMessage("Registering.....");
         progressDialog.setCancelable(false);
@@ -229,12 +249,43 @@ public class RigesterActivity extends AppCompatActivity {
         phone = (EditText) findViewById(R.id.phone);
         college = (EditText) findViewById(R.id.college);
         terms = (CheckBox) findViewById(R.id.term);
+        terms.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(RigesterActivity.this);
+                    LayoutInflater inflater = RigesterActivity.this.getLayoutInflater();
+                    View v = inflater.inflate(R.layout.termslayout, null);
+                    final TextView send = (TextView) v.findViewById(R.id.textView2);
+                    mDatabase.child("cliffesto").child("terms").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                String terms = dataSnapshot.getValue().toString();
+                                send.setText(terms);
+                            } else {
+                                Toast.makeText(RigesterActivity.this, "Database empty!!! ", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                    builder.setView(v);
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+                }
+            }
+        });
         register = (Button) findViewById(R.id.email_sign_in_button);
         cliffidText = (TextView) findViewById(R.id.textViewCliffid);
         isClick = false;
         register.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 MainActivity.vibe.vibrate(15);
                 try {
                     view = v;

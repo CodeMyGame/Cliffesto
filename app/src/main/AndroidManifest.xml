@@ -18,11 +18,7 @@
         <activity
             android:name=".activities.MainActivity"
             android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activities.RigesterActivity"
@@ -32,18 +28,31 @@
         <activity
             android:name=".activities.EventRegister"
             android:label="Event registration"
-            android:parentActivityName=".activities.MainActivity"
             android:theme="@style/AppTheme2" />
         <activity
-            android:name=".activities.EnentInfoActivity"
+            android:name=".activities.EventInfoActivity"
             android:label="Event information"
-            android:parentActivityName=".activities.MainActivity"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".activities.ResultsAndMoreActivity"
             android:label="Schedule"
-            android:parentActivityName=".activities.MainActivity"
             android:theme="@style/AppTheme2" />
+        <activity
+            android:name=".activities.AdvisoryActivity"
+            android:label="Media Partners"
+            android:theme="@style/AppTheme2" />
+        <activity
+            android:name=".activities.HomeNextActivity"
+            android:theme="@style/AppTheme2" />
+        <activity
+            android:name=".activities.SplashActivity"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

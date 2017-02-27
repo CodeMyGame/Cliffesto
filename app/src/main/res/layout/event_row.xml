@@ -29,7 +29,7 @@
             android:layout_marginTop="10sp"
             android:text="Robotics"
             android:textColor="#5c5c7b"
-            android:textSize="20sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             />
 
@@ -49,6 +49,7 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/title"
             android:padding="15sp"
-            android:src="@drawable/ic_info_black" />
+            android:src="@drawable/ic_call_black" />
+
     </RelativeLayout>
 </android.support.v7.widget.CardView>

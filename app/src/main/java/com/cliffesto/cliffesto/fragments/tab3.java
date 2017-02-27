@@ -5,7 +5,6 @@ import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
@@ -26,13 +25,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 /**
  * A simple {@link Fragment} subclass.
  */
 public class tab3 extends Fragment {
-
-
     public Typeface tf;
     ProgressBar progressBar;
     TextView title;
@@ -51,7 +47,6 @@ public class tab3 extends Fragment {
         myRef = database.getReference("cliffesto");
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        GridLayoutManager glm = new GridLayoutManager(getActivity(),2);
         StaggeredGridLayoutManager sglm = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(sglm);
         mUserAdapter = new EventAdapter(mUsers, getActivity());
@@ -91,5 +86,6 @@ public class tab3 extends Fragment {
             return null;
         }
     }
+
 
 }

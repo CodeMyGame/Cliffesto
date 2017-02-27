@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.cliffesto.cliffesto.R;
 import com.cliffesto.cliffesto.beans.ScheduleBean;
-import com.cliffesto.cliffesto.picaso.AnimationUtils;
 
 import java.util.List;
 
@@ -20,7 +19,6 @@ import java.util.List;
  */
 
 public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.MyViewHolder> {
-    int previousPosition = 0;
     Context context;
     private List<ScheduleBean> gallaryList;
 
@@ -41,25 +39,13 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.MyView
         ScheduleBean gallary = gallaryList.get(position);
         holder.tvHeading.setText(gallary.getHeading());
         holder.description.setText(gallary.getTime());
+        holder.venue.setText(gallary.getVenue());
         Glide
                 .with(context)
                 .load(gallaryList.get(position).url)
-                .centerCrop()
                 .placeholder(R.drawable.img_gallary)
                 .crossFade()
                 .into(holder.imageView);
-        if (position > previousPosition) {
-            AnimationUtils.animate(holder, true);
-        } else {
-            AnimationUtils.animate(holder, false);
-        }
-        previousPosition = position;
-        if (position > previousPosition) {
-            AnimationUtils.animate(holder, true);
-        } else {
-            AnimationUtils.animate(holder, false);
-        }
-        previousPosition = position;
 
     }
 
@@ -72,12 +58,14 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.MyView
         public TextView tvHeading;
         public ImageView imageView;
         public TextView description;
+        public TextView venue;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             tvHeading = (TextView) itemView.findViewById(R.id.eventname);
             description = (TextView) itemView.findViewById(R.id.time);
             imageView = (ImageView) itemView.findViewById(R.id.head_img);
+            venue = (TextView) itemView.findViewById(R.id.venue);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         }
     }

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.cliffesto.cliffesto.R;
@@ -76,16 +77,19 @@ public class SponsersAdapter extends RecyclerView.Adapter<SponsersAdapter.MyView
                 mDatabase.child("cliffesto").child("sponserslink").child("" + position).child("link").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        String no = dataSnapshot.getValue().toString();
-                        if (isClick) {
-                            String url = no;
-                            Intent i = new Intent(Intent.ACTION_VIEW);
-                            i.setData(Uri.parse(url));
-                            context.startActivity(i);
-                            isClick = false;
+                        if (dataSnapshot.exists()) {
+                            String no = dataSnapshot.getValue().toString();
+                            if (isClick) {
+                                String url = no;
+                                Intent i = new Intent(Intent.ACTION_VIEW);
+                                i.setData(Uri.parse(url));
+                                context.startActivity(i);
+                                isClick = false;
+                            }
+                        } else {
+                            Toast.makeText(context, "Link not available!!!", Toast.LENGTH_SHORT).show();
                         }
                     }
-
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
 
