@@ -61,8 +61,8 @@ import static android.graphics.Color.WHITE;
  */
 public class RigesterActivity extends AppCompatActivity {
 
-    public static final String EMAIL = "cliffesto.app@gmail.com";
-    public static final String PASSWORD = "cliffesto2k17@nituk";
+    public static final String EMAIL = "abc@gmail.com";
+    public static final String PASSWORD = "abcdefgh";
     String cliffid = "1000";
     EditText name;
     EditText email;
